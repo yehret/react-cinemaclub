@@ -15,12 +15,12 @@ import {
   Divider,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import Hidden from '@mui/material/Hidden';
+import { Link } from 'react-router-dom';
 
-const App = () => {
+const Navigation = () => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = () => {
@@ -30,26 +30,18 @@ const App = () => {
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        <Link to="/settings">
+          <ListItem disablePadding>
             <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Settings'} />
             </ListItemButton>
           </ListItem>
-        ))}
+        </Link>
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
 
@@ -69,10 +61,16 @@ const App = () => {
               <MenuIcon />
             </IconButton>
           </Hidden>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Home
+            <Link to="/">CinemaClub</Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Box sx={{ display: { xs: 'none', lg: 'flex' } }}>
+            <Link to="/settings">
+              <Button sx={{ my: 2, color: 'white', display: 'block' }}>Settings</Button>
+            </Link>
+          </Box>
+          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
 
@@ -83,4 +81,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Navigation;
